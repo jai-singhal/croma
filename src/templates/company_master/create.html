@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block style %}
+<style>
+label{
+	width:110px;	
+}
+input[type=text], select, input[type=number]{
+	width:55%;
+}
+</style>
+{% endblock %}
+{% block head_extra %}
+<title>Add/Edit Company Popup | Croma</title>
+{% endblock %}
+{% block content %}
+<div class = "container">
+	<div class = "col-md-12">
+		<h1>{{title}}</h1><br>
+		<form method = 'POST' action= '' enctype = "multipart/form-data" novalidate id = "unit-form">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type = "submit" class = "btn btn-primary" value = "Submit">
+			<br><br>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#id_name").focus();
+		{% if title == "Company Form" %}
+			AutoCompleteData('/company/api/chain-list/?format=json', "companyData", "#id_name", 50, 1);
+		{% endif %}
+		{% if title == "Supplier Form" %}
+			AutoCompleteData('/company/api/supplier-list/?format=json', "supplierData", "#id_name", 50, 1);
+		{% endif %}
+	})
+</script>
+{% endblock %}

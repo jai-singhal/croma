@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static '/css/reports.css' %}" rel="stylesheet">
+{% endblock %}
+{% block style %}
+<style media="screen">
+  td{
+    font-size: 14px ;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% include "home/navbar.html" %}
+  <div class="jumbotron" style="margin-top: -20px; margin-bottom: 20px;">
+  	<div class = "container">
+    <h1>{{title}}</h1>
+    {% if suppiler %}
+      <p>Report for <span style="color: red;">{{item.name}}</span> purchased from <span style="color: red;">{{suppiler.name}}</span>  </p>
+    {% else %}
+     <p>Displaying the results from <span style="color:red;">{{from_dt}}</span> to <span style="color:red;">{{to_dt}}</span> for <span style="color:red;">{{item}}</span></p>
+    {% endif %}
+
+  </div>
+ </div>
+
+{% if report %}
+<div class = "container">
+	<div id = "no-more-tables">
+		<table class="col-md-12 table-bordered table-striped table-condensed cf">
+			<thead>
+			<tr>
+				<th class="col-sm-1">Doc No.</th>
+				<th class="col-sm-2">Doc Date</th>
+				<th class="col-sm-3">Party Name</th>
+        <th class="col-sm-2">Batch</th>
+				<th class="col-sm-1">Strip</th>
+        <th class="col-sm-1">Nos</th>
+		  <th class="col-sm-1">Amount</th>
+			</tr>
+			</thead>
+			{% for obj in report %}
+      <tr>
+		    <td class="col-sm-1">{{obj.hrd_id.doc_no}}</td>
+        <td class="col-sm-2">{{obj.hrd_id.doc_dt}}</td>
+        <td class="col-sm-3">{{obj.hrd_id.party_id.name}}{{obj.hrd_id.supplier_id.name}}</td>
+        <td class="col-sm-2">{{obj.batch_no}}</td>
+        <td class="col-sm-1">{{obj.strip_qty}}</td>
+        <td class="col-sm-1">{{obj.nos_qty}}</td>
+        <td class="col-sm-1">{{obj.amount}}</td>
+      </tr>
+      {% endfor %}
+	</div>
+	</table>
+ </div>
+{% else %}
+<div class="container" style="margin-top: 30px; color: red;">
+<h3>No Report Found</h3>
+</div>
+{% endif %}
+<br><br><br>
+{% include "reports/pagination.html" %}
+{% endblock %}
+
+{% block script %}
+<script>
+var total_pages = {{report.paginator.num_pages}};
+var current_page = {{report.number}};
+</script>
+<script src = "{% static '/js/report_pagination.js' %}"></script>
+{% endblock %}

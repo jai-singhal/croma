@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static '/css/reports.css' %}" rel="stylesheet">
+{% endblock %}
+{% block style %}
+<style media="screen">
+td{
+  font-size: 14px ;
+}
+</style>
+{% endblock %}
+{% block content %}
+{% include "home/navbar.html" %}
+<div class="jumbotron" style="margin-top: -20px; margin-bottom: 20px;">
+ <div class = "container">
+  <h1>{{title}} Inventory</h1>
+  <p>Inventory results for <span style="color:red;">{{title }} : {{q1.name}}</span></p>
+
+</div>
+</div>
+
+{% if report %}
+<div class = "container">
+	<div id = "no-more-tables">
+		<table class="col-md-12 table-bordered table-striped table-condensed cf">
+			<thead>
+       <tr>
+        <th class="col-sm-1">Item code</th>
+        <th class="col-sm-2">Item name</th>
+        <th class="col-sm-2">Unit</th>
+        <th class="col-sm-3">Company</th>
+        <th class="col-sm-3">Salt</th>
+        <th class="col-sm-1">Stock(S/N)</th>
+      </tr>
+    </thead>
+    {% for obj in report %}
+    <tr>
+      <td class="col-sm-1">{{obj.item_code}}</td>
+      <td class="col-sm-2">{{obj.name}}</td>
+      <td class="col-sm-2">{{obj.unit_id.name}}</td>
+      <td class="col-sm-3">{{obj.company_id.name}}</td>
+      <td class="col-sm-3">{{obj.salt_id.name}}</td>
+      <td class="col-sm-1">{{obj.strip_stock}} / {{obj.nos_stock}}</td>
+    </tr>
+    {% endfor %}
+
+  </div>
+</table>
+</div>
+{% else %}
+<div class="container" style="margin-top: 30px; color: red;">
+  <h3>No Report Found</h3>
+</div>
+{% endif %}
+<br><br><br>
+{% include "reports/pagination.html" %}
+{% endblock %}
+
+{% block script %}
+<script>
+  var total_pages = {{report.paginator.num_pages}};
+  var current_page = {{report.number}};
+</script>
+<script src = "{% static '/js/report_pagination.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static '/css/reports.css' %}" rel="stylesheet">
+{% endblock %}
+{% block style %}
+<style media="screen">
+  td{
+    font-size: 14px ;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% include "home/navbar.html" %}
+  <div class="jumbotron" style="margin-top: -20px; margin-bottom: 20px;">
+  	<div class = "container">
+    <h1>{{title}}</h1>
+     <p>Displaying the results from <span style="color:red;">{{from_dt}}</span> to <span style="color:red;">{{to_dt}}</span></p>
+    <a href = 'export_report'>
+      <button class = "btn btn-primary">Export CSV</button>
+    </a>
+  </div>
+ </div>
+
+{% if report %}
+<div class = "container">
+	<div id = "no-more-tables">
+		<table class="col-md-12 table-bordered table-striped table-condensed cf">
+			<thead>
+			<tr>
+				<th class="col-sm-1">SNo.</th>
+				<th class="col-sm-4">Supplier Name</th>
+        <th class="col-sm-3">GST IN</th>
+        <th class="col-sm-2">Total Inv</th>
+				<th class="col-sm-2">Total Amt</th>
+			</tr>
+			</thead>
+			{% for obj in report %}
+      <tr>
+		    <td class="col-sm-1 sno" 
+            counter = "{{forloop.counter}}" >            
+          </td>
+        <td class="col-sm-4">{{obj.supplier_id__name}}</td>
+        <td class="col-sm-3">{{obj.supplier_id__gst_no}}</td>
+        <td class="col-sm-2">{{obj.total_inv}}</td>
+        <td class="col-sm-2">{{obj.total_amt}}</td>
+      </tr>
+      {% endfor %}
+	</div>
+	</table>
+ </div>
+{% else %}
+<div class="container" style="margin-top: 30px; color: red;">
+<h3>No Report Found</h3>
+</div>
+{% endif %}
+<br><br><br>
+{% include "reports/pagination.html" %}
+{% endblock %}
+
+{% block script %}
+<script>
+var total_pages = {{report.paginator.num_pages}};
+var current_page = {{report.number}};
+$(document).ready(function(){
+  var sno;
+  $(".sno").each(function(){
+      sno = parseInt($(this).attr("counter"));
+      $(this).html(sno + 40*(current_page-1));
+  })
+})
+</script>
+<script src = "{% static '/js/report_pagination.js' %}"></script>
+{% endblock %}

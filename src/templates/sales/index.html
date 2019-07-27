@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load compress %}
+{% block head_extra %}
+<title>Sales Master | Croma</title>
+{% endblock %}
+{% block style %}
+{% compress css %}
+<link rel="stylesheet" href="{% static '/css/sales_master.css' %}" />
+{% endcompress %}
+<style>
+
+{% if is_retrieve %}
+.edit_row, .del_row{
+	pointer-events: none;
+	cursor: default;
+}
+{% endif %}
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "home/navbar.html" %}
+{% include "sales/hrd_form.html" %}
+{% if is_retrieve %}
+	<div class = "container" style="margin-bottom: 3px;">
+		<div class = "row">
+		<div class = "col-sm-4"></div>
+		<div class = "col-sm-8">
+			<button type="submit" class="btn btn-primary" id="view_inv"
+				data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Viewing Invoice">
+				View Invoice
+			</button>
+			<button type="submit" class="btn btn-primary" id="print_inv"
+				data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Printing Invoice">
+				Print Invoice
+			</button>
+		</div>
+		</div>
+	</div>
+{% else %}
+<center><div style="width: 100%; height: 25px; font-size: 15px;">Press F9 Key to add Items</div></center>
+{% endif %}
+	{% include "sales/sales_item_table.html" %}
+	{% include "main_buttons.html" %}
+	{% include "sales/dtl_form.html" %}
+	{% include "sales/item_batch_table_modal.html" %}
+	{% include "sales/dtl_item_info_modal.html" %}
+	{% include "sales/search_inv_modal.html" %}
+{% endblock %}
+{% block script %}
+
+{% compress js %}
+<script src="{% static '/js/sales_inv.js' %}"></script>
+{% endcompress %}
+
+<script type="text/javascript">
+{% include "sales/sales.js" %}
+</script>
+{% endblock %}

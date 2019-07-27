@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block content %}
+<div class = "container">
+	<div class = "col-md-12">
+		<form method = 'POST' action= '' enctype = "multipart/form-data" novalidate id = "unit-form">{% csrf_token %}
+		{{ form.as_p }}
+
+			<input type = "submit" value = "Create">
+		</form>
+	</div>
+</div>
+{% endblock %}
+

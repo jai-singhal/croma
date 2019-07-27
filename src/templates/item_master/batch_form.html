@@ -1,0 +1,103 @@
+<div class="modal modal-wide fade" id="editor-modal" tabindex="-1" role="dialog" 
+aria-labelledby="editor-title" data-backdrop="static" data-keyboard="true">
+
+  <style scoped>
+    /* provides a red astrix to denote required fields - this should be included in common stylesheet */
+    .form-group.required .control-label:after {
+      content: "*";
+      color: red;
+      margin-left: 4px;
+    }
+  </style>
+  <div class="modal-dialog" role="document">
+    <form class="modal-content form-horizontal" id="editor">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="editor-title">Add Batch</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="row batch-1row">
+          <div class="form-group required col-md-2" style="margin-right: 15px;">
+            <label for="batch_no" class="control-label">Batch No</label>
+            <input type="text" class="form-control" id="batch_no" name="batch_no" required>
+          </div>
+
+          <div class="form-group required col-md-2" style="margin-right: 15px;">
+            <label for="expiry" class="control-label">Expiry</label>
+            <input class="form-control" id="expiry" name="expiry" placeholder="MM/YY" required>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group col-md-6" style="margin-right: 3px;">
+              <label for="strip" class="control-label">Strip</label>
+              <input type="number" min="0" step="1" class="form-control" id="strip" name="strip" placeholder="Strip" value=0>
+            </div>
+
+            <div class="form-group col-md-6" style="margin-right: 15px;">
+              <label for="nos" class="control-label">Nos</label>
+              <input type="number" min="0" step="1" class="form-control" id="nos" name="nos" placeholder="Nos" value=0>
+            </div>
+          </div>
+
+          <div class="form-group col-md-2" style="margin-right: 15px;">
+            <label for="strip_pur" class="control-label">Strip Pur</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="strip_pur" name="strip_pur" placeholder="Strip Pur"
+              value=0 .00>
+          </div>
+
+          <div class="form-group required col-md-2">
+            <label for="strip_sale" class="control-label">Strip Sale</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="strip_sale" name="strip_sale" placeholder="Strip Sale"
+              value=0 .00 required>
+          </div>
+
+        </div>
+
+        <div class="row batch-2row">
+
+          <div class="form-group col-sm-2" style="margin-right: 10px;">
+            <label for="mrp" class="control-label">Mrp</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="mrp" name="mrp" placeholder="MRP" value=0 .00>
+          </div>
+
+          <div class="form-group col-sm-2" style="margin-right: 10px;">
+            <label for="pur_rt" class="control-label">Purchase Rate</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="pur_rt" name="pur_rt" placeholder="pur_rt" value=0 .00>
+          </div>
+
+          <div class="form-group col-sm-2" style="margin-right: 10px;">
+            <label for="sale_rt" class="control-label">Sales Rate</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="sale_rt" name="sale_rt" placeholder="sale_rt" value=0>
+          </div>
+
+          <div class="form-group col-sm-2" style="margin-right: 10px;">
+            <label for="inst_rt" class="control-label">Inst Rate</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="inst_rt" name="inst_rt" placeholder="inst_rt" value=0
+              .00>
+          </div>
+
+          <div class="form-group col-sm-2" style="margin-right: 10px;">
+            <label for="trade_rt" class="control-label">Trade Rate</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="trade_rt" name="trade_rt" placeholder="std_rt" value=0
+              .00>
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label for="std_rt" class="control-label">Std Rate</label>
+            <input type="number" min="0.00" step="0.01" class="form-control" id="std_rt" name="std_rt" placeholder="std_rt" value=0 .00>
+          </div>
+        </div>
+        <!-- End of Row -->
+
+      </div>
+      <!-- End of model Body -->
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="batch_add_btn">Add Batch</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="batch_close_btn">Close</button>
+      </div>
+    </form>
+  </div>
+ </div>

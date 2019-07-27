@@ -1,0 +1,73 @@
+<!--doctype HTML-->
+{% load staticfiles %}
+{% load compress %}
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block head_extra %}
+{% endblock head_extra %}
+{% compress css %}
+<link rel="stylesheet" href="{% static '/css/bootstrap3.min.css' %}" />
+<link rel="stylesheet" href="{% static '/css/base.css' %}" />
+<link rel="stylesheet" href="{% static '/css/jquery-ui.min.css' %}" />
+<link href="{% static '/fonts/roboto.css' %}" rel="stylesheet">
+{% endcompress %}
+<style>
+body, table{
+   background-image: url("{% static 'images/background.jpg' %}") !important;
+}
+.navbar{
+   background-image: url("{% static 'images/background.jpg' %}") !important;
+}
+{% if is_retrieve %}
+.footable-edit, .footable-delete{
+    display:none !important;
+}
+{%endif %}
+</style>
+
+{% block style %}
+{% endblock style %}
+</head>
+<body>
+<div class="loading">Loading&#8230;</div>
+    {% block content %}
+    {% endblock content %}
+ {% include "home/search_item_modal.html" %}
+ 
+{% compress js %}
+<script src="{% static '/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static '/js/bootstrap3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.autocomplete.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/item_table_manipulations.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/search_item.js' %}"></script>
+{% endcompress %}
+
+<script type="text/javascript">
+$(".loading").hide();
+var csrftoken = getCookie('csrftoken');
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+//for shortcut keys for ctrl + s CTRL + A  etc
+$(document).ready(function() {
+    $("input").attr("autocomplete", "off");
+    {% if is_retrieve %}
+        $('input').each(function(){
+            $(this).prop('readonly', true);
+        })
+    {% endif %}
+}) //end of document ready function
+</script>
+{% block script %}
+{% endblock script %}
+</body>
+</html>

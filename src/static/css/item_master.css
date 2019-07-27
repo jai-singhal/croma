@@ -1,0 +1,146 @@
+#id_name{
+	width:70%;	
+	height:24px;
+	font-size: 13px;
+}
+#id_unit_id{
+	width:50%;
+	height:24px;
+	font-size: 13px;
+	font-weight: bold;
+}
+#id_is_active{
+	width:10%;
+	height:15px;
+	margin-top: 5px;
+}
+#id_item_code{
+	width:45%;
+	height:24px;
+}
+.first_row, .second_row, .third_row, .fourth_row{
+	margin-bottom: 20px;
+}
+.first_row{
+	margin-top: -20px;
+}
+#id_bin_no{
+	width:45%;
+	height:24px;
+}
+#id_group_id{
+	width:75%;
+	height:24px;
+		font-size: 13px;
+	font-weight: bold;
+}
+#id_salt_id{
+	width:75%;
+	height:24px;
+	font-size: 13px;
+	font-weight: bold;
+}
+#id_stax_id, #id_ptax_id{
+	width:45%;
+	height:24px;
+	font-size: 13px;
+	font-weight: bold;
+}
+#id_godown_id{
+	width:40%;
+	height:24px;
+	font-size: 13px;
+	font-weight: bold;
+}
+#id_slow_days{
+	width:30%;
+	height:24px;
+	font-size: 15px;
+}
+#id_min_qty, #id_max_qty{
+	width:45%;
+	height:24px;
+	font-size: 15px;
+}
+#id_re_level, #id_re_qty{
+	width:30%;
+	height:24px;
+	font-size: 15px;
+}
+
+
+#expiry, #batch_no, #strip, #nos, #strip_pur, #strip_sale{
+	font-size: 13.5px;
+	height:29px;
+}
+#nos, #strip{
+	width: 130%;
+}
+#batch_no{
+	width:110%;
+}
+#mrp, #pur_rt, #sale_rt, #inst_rt, #trade_rt, #std_rt{
+	font-size: 13.5px;
+	height:29px;
+}
+.search_item_url{
+font-size:13.3px; margin-left:15px; color:black;
+font-weight: 20;
+}
+.search_item_url :hover{
+	color:black;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+#expiry{
+	width:100%;
+	height:29px;
+}
+
+.control-label {
+	font-size: 13px;
+}
+
+#item_batch_table {
+	font-size: 13px;
+	display: block;
+}
+
+#item_batch_table_body {
+   height:225px;
+   overflow-y: scroll;
+   display: block;
+}
+
+#item_batch_table_head,
+#item_batch_table_body tr {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+#item_batch_table_head {
+	width: calc( 100% - 1.5em)
+}
+
+#item_batch_table_body>tr>td,
+#item_batch_table_head>tr>td {
+	font-size: 12px;
+}
+
+.input_alert {
+	border-color: red;
+}
+
+#item_batch_table tbody tr:hover td {
+	background-color: #6699FF;
+}
+
+.first_row, .second_row, .third_row, .fourth_row{
+	margin-bottom: 16px;
+}
+
+.addBatchesInfo{
+	width: 100%; height: 20px; font-size: 15px; margin-bottom: 10px;
+}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block style %}
+<style type="text/css">
+	#id_name{
+		width:80%;
+	}
+</style>
+{% endblock %}
+{% block head_extra %}
+<title>Add/Edit Salt Popup | Croma</title>
+{% endblock %}
+{% block content %}
+<div class = "container">
+	<div class = "col-md-12">
+		<h1> Salt Form</h1><br>
+		<form method = 'POST' action= '' enctype = "multipart/form-data" id = "salt-form">
+			{% csrf_token %}
+			{{ form.as_p }}
+
+			<input type = "submit" class = "btn btn-primary" value = "Submit">
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#id_name").focus();
+		AutoCompleteData('/salt/api/list/?format=json', "saltData", "#id_name", 50, 0);
+	})
+
+</script>
+{% endblock %}

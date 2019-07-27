@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load compress %}
+{% block head_extra %}
+<title>Purchase Invoice | Croma</title>
+{% endblock %}
+{% block style %}
+{% compress css %}
+<link rel="stylesheet" href="{% static '/css/purchase.css' %}" />
+{% endcompress %}
+<style>
+{% if is_retrieve %}
+.edit_row, .del_row{pointer-events: none;cursor: default;}
+#gif_load_item_batches{display: none;}
+{% endif %}
+</style>
+{% endblock %}
+{% block content %}
+	{% include "home/navbar.html" %}
+	{% include "purchase/hrd_form.html" %}
+	<center>
+		<div class = "addItemText">
+		{% if not is_retrieve %}
+			Press F9 Key to add Items
+		{% endif %}
+		</div>
+	</center>
+	{% include "purchase/item_table.html" %}
+	{% include "main_buttons.html" %}
+	{% include "purchase/dtl_form.html" %}
+	{% include "sales/item_batch_table_modal.html" %}
+	{% include "sales/dtl_item_info_modal.html" %}
+	{% include "purchase/pur_inv_modal_search.html" %}
+{% endblock %}
+{% block script %}
+{% compress js %}
+<script src="{% static '/js/purchase_inv.js' %}"></script>
+{% endcompress %}
+<script type="text/javascript">
+{% include "purchase/purchase.js" %}
+</script>
+{% endblock %}

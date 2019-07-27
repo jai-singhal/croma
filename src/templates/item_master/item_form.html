@@ -1,0 +1,140 @@
+{% load staticfiles %}
+<style>
+.fkey1{
+	margin-left:-20px;
+}
+.fkey2{
+	margin-left:-30px;
+}
+.fkey3{
+	margin-left:-33px;
+}
+.fkey3 span{
+	top:2;
+}
+</style>
+<div class="container" style="margin-top:-20px; border-width: 3px; border-color: #EEEEEE; border-style: dotted;">
+	<div class="col-md-12">
+		<form method='POST' action='' enctype="multipart/form-data" novalidate id="item-form">{% csrf_token %}
+			<br><br>
+
+			<div class="row first_row">
+				<div class="col-sm-4">
+					<label for="item-name" class="control-label">Item Name </label>
+					{{form.name }}
+				</div>
+				<div class="col-sm-3">
+					<label for="unit" class="control-label">Packing </label>
+					{{form.unit_id }}
+
+					{% if is_create or is_update %}
+					<a href="/unit/create" id="add_unit" class="fkey1"
+						onclick="return showAddPopup(this);"><img src="{% static '/images/icon-addlink.svg' %}"></a>
+					{% endif %}
+
+				</div>
+				<div class="col-sm-2">
+					<label for="active" class="control-label">Active Medicine</label>
+					{{form.is_active }}
+				</div>
+				<div class="col-sm-3">
+					<label for="item_code" class="control-label">Product Code</label>
+					{{form.item_code }}
+					<!-- Lock This Field -->
+				</div>
+
+			</div>
+			<div class="row second_row">
+				<div class="col-sm-3">
+					<label for="bin_no" class="control-label">Bin No. </label>
+					{{form.bin_no }}
+				</div>
+
+				<div class="col-sm-9">
+					<label for="company" class="control-label">Company</label>
+					<span style="width:100px;height:30px">
+						{{form.group_id }}<span>
+							{% if is_create or is_update %}
+							<a href="/company/create" id="add_company" class="fkey1"
+								onclick="return showAddPopup(this);"><img
+									src="{% static '/images/icon-addlink.svg' %}"></a>
+							<a id="edit_company" class="fkey2"><img
+									src="{% static '/images/icon-changelink.svg' %}"></a>
+							<a id="view_company" class="fkey3" 
+								data-toggle="modal" data-target="#comapny_infoModal">
+								<span class="glyphicon glyphicon-info-sign">
+							</a>{% endif %}
+				</div>
+				{% include "item_master/company_info_modal.html" %}
+			</div>
+
+			<div class="row third_row">
+				<div class="col-md-7">
+					<label for="salt" class="control-label">Generic Name</label>
+					{{form.salt_id }}
+					{% if is_create or is_update %}
+					<a href="/salt/create" id="add_salt" class="fkey1"
+						onclick="return showAddPopup(this);"><img src="{% static '/images/icon-addlink.svg' %}"></a>
+					<a class="fkey2" id="edit_salt"><img src="{% static '/images/icon-changelink.svg' %}"></a>
+					{% endif %}
+				</div>
+
+				<div class="col-md-2">
+					<label for="sale_tax" class="control-label">Sales Tax</label>
+					{{form.stax_id }}
+				</div>
+				<div class="col-sm-3">
+					<label for="pur_tax" class="control-label">Purchase Tax</label>
+					{{form.ptax_id }}
+				</div>
+			</div>
+
+			<div class="row fourth_row">
+				<div class="col-sm-3">
+					<label for="godown" class="control-label">Godown Name</label>
+					{{form.godown_id }}
+				</div>
+
+				<div class="col-md-2">
+					<label for="cgst" class="control-label">CGST</label>
+					{{form.cgst }}
+				</div>
+				<div class="col-sm-2">
+					<label for="sgst" class="control-label">SGST</label>
+					{{form.sgst }}
+				</div>
+
+				<div class="col-sm-2">
+					<label for="min_qty" class="control-label">Min Qty</label>
+					{{form.min_qty }}
+				</div>
+				<div class="col-sm-2">
+					<label for="max_qty" class="control-label">Max Qty</label>
+					{{form.max_qty }}
+				</div>
+			</div>
+
+			<div class="row fifth_row">
+				<div class="col-md-3">
+					<label for="re_level" class="control-label">ReOrder Level</label>
+					{{form.re_level }}
+				</div>
+
+				<div class="col-md-3">
+					<label for="slow_days" class="control-label">No. of days to slow down</label>
+					{{form.slow_days }}
+				</div>
+				<div class="col-md-2">
+					<label for="re_qty" class="control-label">ReOrder Qty</label>
+					{{form.re_qty }}
+				</div>
+				<div class="col-md-2">
+					<label for="app" class="control-label">Approval</label>
+					{{form.app }}
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+</div>

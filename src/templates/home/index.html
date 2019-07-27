@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head_extra %}
+<title>Welcome | Croma</title>
+{% endblock %}
+{% block style %}
+<link href="{% static 'css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% include "home/navbar.html" %}
+
+<div class="container text-center">
+    <div class="col-md-10 col-md-offset-1">
+        <h1 style="font-weight: bold;">{{current_session.registration_id.company_name}}</h1><br>
+        <h4 style="margin-left: 7%;">
+            {{current_session.registration_id.address1}}
+            {{current_session.registration_id.address2}}
+            {% if current_session.registration_id.address3 %}
+            {{current_session.registration_id.address3}}
+            {% endif %}
+            {{current_session.registration_id.city}}, {{current_session.registration_id.state}}
+            {{current_session.registration_id.pin}}
+        </h4>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Gst No.: {{current_session.registration_id.gst_no}}</h4>
+            </div>
+            <div class="col-md-6">
+                <h4>Conatct No.: {{current_session.registration_id.phone1}}</h4>
+            </div>
+        </div><br>
+        <img src="{% static '/images/Ganesh_laxmi.jpg' %}">
+    </div>
+</div>
+
+<div class = "backup">
+    <button id = "id_backup" 
+    data-toggle="modal" data-target="#backupModal" 
+    class="btn btn-lg btn-light">Take Backup now</button>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src = "{% static 'js/index.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!--doctype HTML-->
+{% load staticfiles %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static '/css/bootstrap3.min.css' %}" />
+	<link rel="stylesheet" href="{% static '/css/login.css' %}" />
+</head>
+<body>
+	<div class="wrapper">
+		<form class="form-signin" method='POST'>{% csrf_token %}
+			<h2 class="text-center">Your session expired</h2>
+			<hr />
+			<h4 class="text-center">
+				Your session <strong>{{lastEnding.code}}</strong>
+				from {{lastEnding.from_dt}} to {{lastEnding.to_dt}} has been
+				expired.
+			</h4>
+			<br>
+			<h4 class="text-center">
+				Do you want to create new session now?
+			</h4>
+			<br>
+			<button id="createNewSession" type="submit" 
+                class="btn btn-block btn-success btn-lg text-center">YES</button>
+			<button class="btn btn-block btn-danger btn-lg text-center">NO</button>
+		</div>
+	</div>
+	<script src="{% static '/js/jquery.min.js' %}"></script>
+	<script src="{% static '/js/bootstrap3.min.js' %}"></script>
+</body>
+</html>

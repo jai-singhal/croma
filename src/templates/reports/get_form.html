@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "home/navbar.html" %}
+  <div class="jumbotron" style="margin-top: -20px;">
+  	<div class = "container">
+    <h1>{{title}}</h1> 
+    <p>Generate Report of {{title}} according to date </p> 
+  </div>
+ </div>
+
+<div class = "container">
+	<div class = "col-md-8 col-offset-3">
+	<form id = "my_form" method = "POST" report_type = "{{report_type}}">{% csrf_token %}
+      <div class="form-group required">
+	      <span style="display:inline-block; width: 5px;"></span> <label for="from_dt" class="control-label">From Date</label>
+	      <span style="display:inline-block; width: 1px;"></span>
+	      {{form.from_dt}}<br>
+      </div>
+	  <div class="form-group required">
+	      <span style="display:inline-block; width: 5px;"></span> <label for="to_dt" class="control-label">To Date</label>
+	      <span style="display:inline-block; width: 18px;"></span>
+	      {{form.to_dt}}<br>
+      </div>	
+		
+		<input class = "btn btn-primary" type = "submit" value = "Show">
+	</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#id_from_dt, #id_to_dt").datepicker({
+			changeMonth:true,
+			changeYear:true,
+			changeDate:false,
+			showButtonPanel: true,
+		});
+	})
+</script>
+{% endblock %}

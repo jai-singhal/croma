@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+#id_name{
+width: 64%;
+}
+.control-label{
+	font-size: 16px;
+}
+input{
+	font-size: 15px;
+	padding-left: 4px;
+}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+{% include "home/navbar.html" %}
+  <div class="jumbotron" style="margin-top: -20px;">
+  	<div class = "container">
+    <h1>Inventory {{type}} Report</h1>
+
+  </div>
+ </div>
+
+
+<div class = "container">
+	<div class = "col-md-12 col-offset-3">
+	<form id = "my_form" method = "POST">{% csrf_token %}
+
+		<div class = "row">
+			  <div class="form-group required col-md-6">
+			     <label for="from_dt" class="control-label">Enter {{type}} name</label>
+			      <span style="display:inline-block; width: 1px;"></span>
+			      {{form.name}}<br>
+			  </div>
+		</div>
+		<input class = "btn btn-primary" type = "submit" value = "Show" style="margin-top: 30px;">
+	</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+var utype = "{{type}}"
+if(utype == "Company"){
+  $.getJSON("/company/api/company-list/?format=json", function (data) {
+      $("#id_name").autocomplete({
+          lookup:  data,
+          lookupLimit: 80,
+          minChars: 1,
+          autoSelectFirst : false,
+          showNoSuggestionNotice:  true,
+          onSelect: function(suggestion) {
+                $("#item_id_field").val(suggestion.id);
+
+          },
+          onHint: function (hint) {
+              $('#item-hint').val(hint);
+           },
+           lookupFilter: function (suggestion, query, queryLowerCase) {
+                return suggestion.value.toLowerCase().indexOf(queryLowerCase) == 0;
+            },
+      });
+  })
+}
+else if(utype == "Unit"){
+  $.getJSON("/unit/api/list/?format=json", function (data) {
+      $("#id_name").autocomplete({
+          lookup:  data,
+          lookupLimit: 50,
+          minChars: 1,
+          autoSelectFirst : false,
+          showNoSuggestionNotice:  true,
+
+          onSelect: function(suggestion) {
+                $("#item_id_field").val(suggestion.id);
+
+          },
+          onHint: function (hint) {
+              $('#item-hint').val(hint);
+           },
+      });
+  })
+}
+else if(utype == "Salt"){
+  $.getJSON("/salt/api/list/?format=json", function (data) {
+      $("#id_name").autocomplete({
+          lookup:  data,
+          lookupLimit: 50,
+          minChars: 1,
+          autoSelectFirst : false,
+          showNoSuggestionNotice:  true,
+
+          onSelect: function(suggestion) {
+                $("#item_id_field").val(suggestion.id);
+          },
+          onHint: function (hint) {
+              $('#item-hint').val(hint);
+           },
+      });
+  })
+}
+
+</script>
+{% endblock %}

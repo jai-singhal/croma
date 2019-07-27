@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static '/css/reports.css' %}" rel="stylesheet">
+{% endblock %}
+{% block style %}
+<style media="screen">
+  td{
+    font-size: 14px ;
+  }
+  .date{
+    color:red;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% include "home/navbar.html" %}
+<div class="jumbotron" style="margin-top: -20px; margin-bottom: -30px;">
+ <div class = "container">
+  <h1>{{title}}</h1>
+  <p>Displaying the results from {{from_dt}} to {{to_dt}}</p>
+      <a href = 'export_report'>
+      <button class = "btn btn-primary">Export CSV</button>
+    </a>
+</div>
+</div>
+
+{% if report %}
+
+<div class = "container">
+	<div id = "no-more-tables">
+		<table class="col-md-12 table-bordered table-striped table-condensed cf">
+			<thead>
+       <tr>
+        {% if inv_type == "sales" %}
+        <th class="col-sm-1">Doc No.</th>
+        <th class="col-sm-3">Party Name</th>
+        <th class="col-sm-3">Doctor Name</th>
+        <th class="col-sm-1">Discount</th>
+        <th class="col-sm-2">Amount</th>
+
+        {% endif %}
+        {% if inv_type == "purchase" %}
+        <th class="col-sm-1">Doc No.</th>
+        <th class="col-sm-3">Supplier Name</th>
+        <th class="col-sm-1">Invoice No.</th>
+        <th class="col-sm-2">GST IN No.</th>
+        <th class="col-sm-1">CGST</th>
+        <th class="col-sm-1">SGST</th>
+        <th class="col-sm-1">Discount</th>
+        <th class="col-sm-2">Amount</th>
+        {% endif %}
+      </tr>
+    </thead>
+    {% for date_report in report %}
+    {% if date_report.0 %}
+  </table>
+  <h5 style="font-weight: bold; color: red; margin-top: 80px !important;"> {{date_report.2 | date:"M d, Y" }}</h5>
+
+  <table class="col-md-12 table-bordered table-striped table-condensed cf">
+
+    {% for obj in date_report.0 %}
+    {% if obj %}
+    <tr>
+      {% if inv_type == "sales" %}
+      <td class="col-sm-1"> {{obj.doc_no}}</td>
+      <td class="col-sm-3">{{obj.party_id.name}}</td>
+      <td class="col-sm-3">{{obj.doctor_id.name}}</td>
+      <td class="col-sm-1">{{obj.sale_discount}}</td>
+      <td class="col-sm-2">{{obj.net_amount}}</td>
+      {% endif %}
+      {% if inv_type == "purchase" %}
+      <td class="col-sm-1"> {{obj.doc_no}}</td>
+      <td class="col-sm-3">{{obj.supplier_id.name}}</td>
+      <td class="col-sm-1">{{obj.supp_chal_no}}</td>
+      <td class="col-sm-2">{{obj.supplier_id.gst_no}}</td>
+      <td class="col-sm-1">{{obj.paid_cgst}}</td>
+      <td class="col-sm-1">{{obj.paid_sgst}}</td>
+      
+      <td class="col-sm-1">{{obj.paid_discount}}</td>
+      <td class="col-sm-2">{{obj.paid_amount}}</td>
+      {% endif %}
+    </tr>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% if date_report.0.count %}
+    <tr style="padding-bottom: 125px; background-color: #EEEEEE" >
+
+{% if inv_type == "sales" %}
+      <td class="col-sm-1"> {{obj.doc_no}}</td>
+      <td class="col-sm-3">{{obj.party_id.name}}</td>
+      <td class="col-sm-3">{{obj.doctor_id.name}}</td>
+      {% else %}
+     <td class="col-sm-1"> </td>
+     <td class="col-sm-3"> </td>
+     <td class="col-sm-1"> </td>
+      <td class="col-sm-2"> </td>
+      <td class="col-sm-1"> </td>
+      <td class="col-sm-1"> </td>
+
+      {% endif %}
+
+
+     <td class="col-sm-1"> Total Inv: <span style="font-weight: bold;">{{date_report.0.count}}</span></td>
+     <td class="col-sm-2">Total Amt: <span style="font-weight: bold;">
+      {% if inv_type == "sales" %}
+      {{date_report.1.net_amount__sum}}
+      {% endif %}{% if inv_type == "purchase" %}
+      {{date_report.1.paid_amount__sum}}
+      {% endif %}</span></td>
+     </tr>
+     {% endif %}
+     {% endfor %}
+
+   </div>
+ </table>
+</div>
+{% else %}
+<div class="container" style="margin-top: 30px; color: red;">
+  <h3>No Report Found</h3>
+</div>
+{% endif %}
+<br><br><br>
+
+{% include "reports/pagination.html" %}
+
+{% endblock %}
+{% block script %}
+<script>
+  var total_pages = {{report.paginator.num_pages}};
+  var current_page = {{report.number}};
+</script>
+<script src = "{% static '/js/report_pagination.js' %}"></script>
+{% endblock %}

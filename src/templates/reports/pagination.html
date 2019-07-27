@@ -1,0 +1,72 @@
+{% if report %}
+<div class = "container">
+	 <div class = "col-md-12 ">
+	 <center>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+          <li class="page-item">    <!-- Jump to First Page -->
+            {% if report.number != 1 %}
+               <li class="previous">
+                  <a href="?page=1">
+                    <span aria-hidden="true">&laquo;</span></a>
+            {% else %}
+                <li class="previous disabled">
+                <a><span aria-hidden="true">&laquo;</span></a>
+            {% endif %}
+          </li>
+
+          <li class="page-item">  <!-- Jump to Prvious Page -->
+            {% if report.has_previous %}
+               <li class="previous"> <a href="?page={{ report.previous_page_number }}">
+               <span aria-hidden="true">‹</span></a>
+            {% else %}
+                <li class="previous disabled"><a>‹</a>
+            {% endif %}
+          </li>
+
+          {% if report.has_previous %}
+          <li class="page-item">  <!-- Show Previous 4 page numbers -->
+              <li class="previous"> <a class = "skip_prev" href = "">...</a></li>
+          {% else %}
+                <li class="next disabled"><a>...</a>
+          {% endif %}
+          </li>
+
+          {% for i in "12345" %}
+        <!-- Change the range ("12345") according to your choice to show numbers -->
+            <li class="pg" data = {{i}}><a class = "page_number" href=""></a>
+          {% endfor %}
+
+          {% if report.has_next %}
+          <li class="page-item">  <!-- Show next 4 page numbers -->
+              <li class="previous"> <a class = "skip_next" href = "">...</a></li>
+          {% else %}
+                <li class="next disabled"><a>...</a>
+          {% endif %}
+          </li>
+
+          <li class="page-item">  <!-- Jump to Next Page -->
+            {% if report.has_next %}
+              <li class="previous"> <a href="?page={{ report.next_page_number }}">›</a></li>
+            {% else %}
+                <li class="next disabled"><a>›</a>
+            {% endif %}
+          </li>
+
+          <li class="page-item">  <!-- Jump to Last Page -->
+            {% if report.number != report.paginator.num_pages %}
+              <li class="previous"> <a href="?page={{ report.paginator.num_pages }}">»</a></li>
+            {% else %}
+                <li class="next disabled"><a>»</a>
+            {% endif %}
+          </li>
+
+        </ul>
+      </nav>
+      </center>
+    </div>
+</div>
+{% endif %}
+
+   <br><br><br><br>

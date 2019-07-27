@@ -1,0 +1,235 @@
+input{
+	padding-left: 4px;
+}
+select{
+	padding-left: 2px;
+}
+input[type='text']{
+	height: 24px;
+	font-size: 14px;
+}
+#id_doc_dt{
+	width: 60%;
+	height: 24px;
+
+}
+#id_doc_no{
+	margin-left: 10.5%;
+	width: 45%;
+	height: 24px;
+}
+#id_party_id, #id_doctor_id{
+	width:70%;
+	height: 24px;
+}
+.first_row, .second_row, .third_row{
+	margin-bottom: 18px;
+}
+.row_2{
+	margin-bottom: 8px;
+}
+#id_net_gst{
+	width:35%;
+}
+#id_message {
+	width:80%;
+	height: 24px;
+}
+#id_mode{
+	width:50%;
+	height: 24px;
+}
+
+.sale-date{
+	margin-right: 35px;
+}
+#id_disc_type{
+	width: 12%;
+	height: 24px;
+}
+#id_sale_adjustment, #id_net_amount, #id_rec_amt{
+	width: 35.5%;
+	height: 24px;
+}
+#id_net_cgst, #id_net_sgst{
+	width: 17%;
+}
+#id_sale_disc_type{
+	width: 13%;
+	height: 24px;
+}
+
+
+.modal-dialog{
+	background-color: white;
+}
+#id_item_id{
+	width:400px;
+	height: 24px;
+}
+#id_strip_qty, #id_nos_qty, #id_strip_free, #id_nos_free, #id_purchase, #id_sales, #id_excise, #id_excise_type, #id_other_charge{
+	width:80px;
+	height: 24px;
+}
+
+/* Important part */
+.item_batch_dialog{
+    overflow-y: initial !important
+}
+#item_batch_body{
+    height: 220px;
+    overflow-y: auto;
+}
+#tblHead{
+    font-size: 13px;
+}
+#batches_content > tr{
+    font-size: 12px;
+}
+#batches_content > tr > td, #batches_content{
+    font-size: 12px;
+}
+
+#item_batch_table_modal {
+   position: absolute;
+   top: 10%;
+   left:0% !important;
+
+}
+#batches_content tr:hover{
+    background-color: #EEEEEE;
+}
+#id_batch_no{
+	width:52%;
+	height:24px;
+}
+#id_item_id{
+	width:80%;
+	height:24px;
+}
+#expiry{
+	width:60%;
+	height:24px;
+}
+#id_strip_qty{
+	width:25%;
+	height:24px;
+}
+#id_nos_qty{
+	width:25%;
+	height:24px;
+}
+#id_unit{
+	width:35%;
+	height:24px;
+}
+#id_strip_free{
+	width:30%;
+	height:24px;
+}
+#id_nos_free{
+	width:30%;
+	height:24px;
+}
+#id_excise{
+	width:35%;
+	height:24px;
+}
+#id_amount{
+	width:35%;
+	height:24px;
+}
+
+#id_excise_type, #id_disc_type{
+	width:20%;
+	height:24px;
+}
+#id_discount, #id_excise{
+	width:30%;
+	height:24px;
+}
+#id_sale_discount{
+	width: 21%;
+	height:24px;
+}
+
+
+.control-label{
+	font-size: 14.5px;
+}
+#sale_item_table{
+	font-size: 13.5px;
+}
+#sales_table_body {
+    height:240px;
+	overflow-y: scroll;
+	display: block;
+}
+#sale_item_table{
+	overflow-y: auto;
+}
+#sale_table_head, #sales_table_body tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+#sale_table_head {
+    width: calc( 100% - 1.5em )
+}
+#sales_table_body > tr > td, #sale_table_head > tr > td{
+	font-size: 12.5px;
+}
+#sale_item_table tbody tr:hover td{
+    background-color: #6699FF;
+}
+#id_doc_dt{
+	width:74% !important;
+}
+.item_name{
+	width: 21%;
+}
+.batch, .expiry{
+	width: 11%;
+}
+.strip, .nos, .strip_free, .nos_free{
+	width: 8%;
+}
+.buttons{
+	width: 11%
+}
+.mrp, .amt{
+	width: 9%;
+}
+.labelType1 {
+	width: 100px;
+}
+
+.labelType2 {
+	width: 120px;
+}
+
+.labelType3 {
+	margin-right: 5px;
+}
+.labelType5 {
+	width: 95px;
+	margin-left: 10px;
+	text-align: left !important;
+}
+
+.labelType6 {
+	width: 80px;
+	text-align: left !important;
+}
+
+.labelType8 {
+	width: 80px;
+	text-align: left !important;
+	margin-left: 5px;
+}
+
+.labelType7 {
+	width: 80px;
+	text-align: left !important;
+	margin-left: -9px;
+}

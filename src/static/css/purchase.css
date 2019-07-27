@@ -1,0 +1,287 @@
+.dtl_hr{
+	margin-top: 5px !important;
+	margin-bottom: 7px !important;
+}
+
+.control-label {
+	font-size: 13px;
+}
+
+#purchase_table_body {
+	height: 275px;
+	overflow-y: scroll;
+	display: block;
+}
+#purchase_table_head, #purchase_table_body>tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+#purchase_table_head{
+	width: calc( 100% - 1.25em)
+}
+
+#purchase_table_body>tr>td{
+	font-size: 12.8px;
+}
+#purchase_table_head>tr>th {
+	font-size: 14.0px;
+}
+#purchase_item_table tbody tr:hover td {
+	background-color: #6699FF;
+}
+
+
+#id_doc_no{
+	width: 30%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_supplier_id{
+	width: 50%;
+	height:24px;
+	margin-bottom: 8px;
+	font-size: 13px;
+}
+#id_supp_chal_no,
+#id_paid_amount {
+	width: 30%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_p_method{
+	width: 30%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_paid_amt{
+	width: 25%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_doc_dt{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_supp_chal_dt{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_paid_discount{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_paid_sgst, #id_paid_cgst{
+	width: 22%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_paid_adj_type{
+	width: 12%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_paid_adj{
+	width: 32%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_net_discount{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_net_cgst{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_net_sgst{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_net_adj{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;
+}
+#id_net_amount{
+	width: 45%;
+	height:24px;
+	margin-bottom: 8px;	
+}
+#id_inst_rate, #id_trade_rate{
+	margin-left: 20px;
+	width: 80%;
+}
+#id_std_rate, #id_mrp{
+	width: 80%;
+}
+#id_sgst, #id_cgst{
+	height: 26px;
+	width: 25%;
+}
+#id_sgst_type, #id_cgst_type{
+	height: 26px;
+	width: 20%;
+}
+#id_discount{
+	width: 30%;
+}
+.firstCol > label{
+	width:125px;
+	margin-left:7%;
+}
+.secondCol > label{
+	width:110px;
+}
+.thirdCol > label{
+	width:100px;	
+}
+.item_name {
+	width: 20%;
+}
+
+.batch,
+.expiry {
+	width: 12%;
+}
+
+.total_qty,
+.sgst,
+.cgst,
+.discount,
+.qty_free {
+	width: 6%;
+}
+
+.mrp,
+.rate,
+.amt {
+	width: 6%;
+}
+
+.buttons {
+	width: 8%;
+}
+
+#id_batch_no {
+	width: 52%;
+	height: 24px;
+}
+
+#id_item_id {
+	width: 80%;
+	height: 24px;
+}
+
+#expiry {
+	width: 61.5%;
+	height: 24px;
+}
+
+#id_strip_qty {
+	width: 25%;
+	height: 24px;
+}
+
+#id_nos_qty {
+	width: 25%;
+	height: 24px;
+}
+
+#id_unit {
+	width: 35%;
+	height: 24px;
+}
+
+#id_strip_free {
+	width: 30%;
+	height: 24px;
+}
+
+#id_nos_free {
+	width: 30%;
+	height: 24px;
+}
+
+#id_excise {
+	width: 35%;
+	height: 24px;
+}
+
+#id_amount {
+	width: 42%;
+	height: 24px;
+}
+
+#id_excise_type,
+#id_disc_type {
+	width: 20%;
+	height: 24px;
+}
+
+#id_discount,
+#id_excise {
+	width: 30%;
+	height: 24px;
+}
+#id_purchase, #id_sales{
+	width:30%;
+}
+#id_other_charge{
+	width:40%;
+}
+
+.labelType1{
+	width: 95px;
+	margin-left: 12px;
+	text-align: left !important;
+}
+.labelType2{
+	width: 65px;
+	text-align: left !important;
+}
+.labelType3{
+	margin-left:20px;
+	text-align: center;
+}
+
+
+/* Important part */
+
+.item_batch_dialog {
+	overflow-y: initial !important
+}
+
+#item_batch_body {
+	height: 220px;
+	overflow-y: auto;
+}
+
+#tblHead {
+	font-size: 13px;
+}
+
+#batches_content>tr {
+	font-size: 12px;
+}
+
+#batches_content>tr>td,
+#batches_content {
+	font-size: 12px;
+}
+
+#item_batch_table_modal {
+	position: absolute;
+	top: 10%;
+	left: 0% !important;
+}
+
+#batches_content tr:hover {
+	background-color: #EEEEEE;
+}

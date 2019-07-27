@@ -1,0 +1,112 @@
+{% load staticfiles %}
+<div class="modal modal-ms sale_item_form" id="item-sale-modal-editor" tabindex="-1" role="dialog" aria-labelledby="editor-title" data-backdrop="static" data-keyboard="true">
+    <style scoped>
+    /* provides a red astrix to denote required fields - this should be included in common stylesheet */
+    .form-group.required .control-label:after {
+        content:"*";
+        color:red;
+        margin-left: 4px;
+    }
+</style>
+<div class="modal-dialog" role="document">
+    <form class="modal-content form-horizontal" id="Item-sale-form">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="editor-title">Add Item</h4>
+        </div>
+        <div class="modal-body">
+            <div class = "row">
+                <div class = "col-md-12">
+                    <div class = "row item-1row">
+                        <div class="form-group required col-sm-12" style = "margin-right: 15px;">
+                            <label for="item_name" class="control-label labelType5">Item Name </label>                            <input type="text" id = "id_item_id" required name = "item_name">
+                            <input type = "hidden" id = "item_id_field">
+                            <img style="float:right;  display:none; position: relative;left: -26px; top: -26px; width: 30px;" id = "gif_load_iten_batches" src="{% static '/images/load_itembatch.gif' %}" />
+                            <p id = "item-hint"></p>
+                        </div>
+                    </div>
+                    <div class = "row item-2row">
+                        <div class="form-group required col-sm-6">
+                            <label for="batch_no" class="control-label labelType5">Batch No.</label>
+                            {{item_form.batch_no}}
+                        </div>
+                        <div class="form-group required col-sm-6" style="margin-left:35px;">
+                            <label for="expiry" class="control-label labelType6">Expiry</label>
+                            <input id="expiry" name="expiry" placeholder="MM/YY">
+                        </div>
+                    </div>
+                    <div class = "row item-3row">
+                        <div class="form-group required col-md-6">
+                            <label for="qty" class="control-label labelType5">Qty</label>
+                            {{item_form.strip_qty}}
+                            {{item_form.nos_qty}}
+                        </div>
+                        <div class = "col-sm-1"></div>
+                        <div class="form-group col-md-6" >
+                            <label for="free-qty" class="control-label labelType6">Free Qty</label>
+                            {{item_form.strip_free}}
+                            {{item_form.nos_free}}
+                        </div>
+                    </div>
+                    <div class = "row item-4row">
+                        <div class="form-group col-md-6">
+                            <label for="qty" class="control-label labelType5">Conversion</label>
+                            <input type="text" id="id_unit" name="unit"  disabled>
+                        </div>
+                        <div class = "col-sm-1"></div>
+                        <div class="form-group col-md-6" >
+                            <label for="free-qty" class="control-label labelType6">P/S Price</label>
+                            <input type="number" step="0.01" id="id_purchase" name="purchase_Rate" value = "0.00">
+                            <input type="number" step="0.01" id="id_sales" name="mrp" value = "0.00"> 
+                            <!-- changed to sales_rate -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class = "row item-5row">
+                        <div class="col-sm-6">
+                            <h5 style="margin-left:-5px;"><a href = "#detail-item-view" data-toggle="modal" data-target="#detail-item-view">Click Here</a> to see more Info about Item</h5>
+                        </div>
+                        <div class = "col-sm-6">
+
+                            <label for="qty-stock" class="control-label labelType8">Qty Stock</label>
+                            <input type = "number" disabled id = "strip_stock" val = 0 style="width: 60px; margin-left: 8px;" />
+                            <input type = "number" disabled id = "nos_stock" val = 0 style="width: 60px; margin-top: 5px; margin-left: 10px;" / >
+                        </div>
+                    </div>
+                    <hr>
+                    <div class = "row item-6row">
+                        <div class="form-group col-sm-6" >
+                            <label for="item_gst" class="control-label labelType5">C/S GST</label>
+                            <input type = "text" readonly value = "0"  id = "id_cgst" style="width:21%; background-color:rgb(252, 243, 207);">
+                            <input type = "text" readonly value = "0"  id = "id_sgst" style="width:21%;background-color:rgb(252, 243, 207);">
+                        </div>
+                        <div class="form-group col-sm-6" style="float:right;">
+                           <label for="discount" class="control-label labelType7">Discount</label>
+                            {{item_form.discount}}
+                            {{item_form.disc_type}}
+                        </div>
+                    </div>
+                    <div class = "row item-5row">
+                        <div class="form-group col-sm-6">
+                             <label for="strip_pur" class="control-label labelType5">Other Charges</label>
+                            {{item_form.other_charge}}
+                        </div>
+                        <div class="form-group col-sm-6" style="float:right;">
+                            <label for="strip_pur" class="control-label labelType7">Amount</label>
+                            {{item_form.amount}}
+                        </div>
+                    </div><!-- END OF ROW-->
+                </div> <!-- END OF COL-MD-9 -->
+            </div>
+            <div class = "row">
+                <center>
+                    <input type="submit" id = "sale-item-submit" class="btn btn-primary" value = "Add Item">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </center>
+            </div>
+        </div> <!-- End of model Body -->
+        <input type = "hidden" id = "id_cgst_amt">
+        <input type = "hidden" id = "id_sgst_amt">
+    </form>
+</div>
+</div>

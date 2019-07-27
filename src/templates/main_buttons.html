@@ -1,0 +1,109 @@
+<div style="position: absolute; bottom: 18px; width: 100%;">
+	<center>
+		<button type="submit" class="btn btn-default main-btn" id="add"
+			{% if not is_retrieve %}
+			disabled
+			{% endif %}
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Processing">
+			Add
+		</button>
+
+		<button type="submit" class="btn btn-default main-btn" id="save"
+			{% if not is_create %}
+				disabled
+			{% endif %}
+
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Saving">Save
+		</button>
+		
+		<button type="submit" class="btn btn-default main-btn" id="cancel"
+		
+			{% if is_create %}
+				{% if prev %}
+					cancel-url = "{{prev.get_absolute_url}}"
+				{% else %}
+					cancel-url = "/"  
+					{% comment %} To add page {% endcomment %}
+				{% endif %}
+			{% elif is_update %}
+			cancel-url = "{{instance.get_absolute_url}}"
+			{% else %}
+			disabled
+			{% endif %}
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Processing">
+			Cancel
+		</button>
+		
+		
+		<button type="submit" class="btn btn-default main-btn" 
+			{% if is_update %}
+				id="update"
+			{% else %}
+				id="edit"
+			{% endif %}
+
+			{% if is_create %}
+			disabled
+			{% endif %}
+
+			{% if is_retrieve %}
+			edit-url = "{{instance.get_absolute_edit_url}}"
+			{% endif %}
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Processing">
+
+			{% if is_update %}
+				Update
+			{% else %}
+				Edit
+			{% endif %}
+		</button>
+		
+		
+		<button type="submit" class="btn btn-default main-btn" id="prev" 
+			{% if prev and is_retrieve %}
+			prev-url = "{{prev.get_absolute_url}}"
+			{% else %}
+			disabled
+			{% endif %}
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Processing">
+			Previous
+		</button>
+		
+		
+		<button type="submit" class="btn btn-default main-btn" id="next"
+			{% if next and is_retrieve %}
+			next-url = "{{next.get_absolute_url}}"
+			{% else %}
+			disabled
+			{% endif %}
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Processing">
+			Next
+		</button>
+		
+		
+		<button type="submit" class="btn btn-default main-btn" id="delete"
+			{% if not is_retrieve %}
+				disabled
+			{% endif %}
+
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Processing">
+			Delete
+		</button>
+		
+		<input type="submit" class="btn btn-default main-btn" id="search" value="Search" data-toggle="modal"
+			
+			{% if not is_retrieve %}
+				disabled
+			{% endif %}
+			data-target="#search-item" />
+		
+		<button type="submit" class="btn btn-default main-btn" id="close"
+			{% if not is_retrieve %}
+				disabled
+			{% endif %}
+
+			data-loading-text="<span class='glyphicon glyphicon-refresh glyphicon-spin'></span> Closing">
+			Close
+		</button>
+	</center>
+</div>

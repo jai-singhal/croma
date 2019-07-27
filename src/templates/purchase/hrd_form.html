@@ -1,0 +1,66 @@
+{% load staticfiles %}
+<div class = "container-fluid" style="width: 96%;">
+	<form  class = "form-group row" id = "pur_hrd_form">{% csrf_token %}
+	<div class = "row">
+		<div class = "col-sm-5 firstCol">
+		    <label for="doc-no" class="control-label">Document No.</label>
+		    <input type = "number" value = {{doc_no}} readonly id = "id_doc_no" name = "doc_no"><br>
+
+            <label for="supp_name" class="control-label">Supplier Name</label>
+           {{hrd_form.supplier_id }}
+			{% if is_create or is_update %}<a href="/company/supplier/create" id="add_supplier"
+												 class = "fkey" onclick="return showAddPopup(this);">
+				<img src = "{% static '/images/icon-addlink.svg' %}"></a>
+			<a id="edit_supplier" class = "fkey" ><img src = "{% static '/images/icon-changelink.svg' %}"></a>{% endif %}
+           <br>
+            <label for="supp_inv" class="control-label">Supplier Inv. No.</label>
+           {{hrd_form.supp_chal_no }}<br>
+
+            <label for="pur_method" class="control-label">Purchase Method</label>
+           {{hrd_form.p_method }}<br>
+
+            <label for="net_pay_amt" class="control-label">Net Payable Amt</label>
+           {{hrd_form.paid_amount }}   <br>
+		</div>
+
+		<div class = "col-sm-3 secondCol">
+            <label for="doc_date" class="control-label">Document Date</label>
+           {{hrd_form.doc_dt }}<br>
+            <label for="supp_inv_date" class="control-label">Supp Inv Date</label>
+           {{hrd_form.supp_chal_dt }}<br>
+
+            <label for="disc" class="control-label">Discount</label>
+           {{ hrd_form.paid_discount }} <br>
+
+		    <label for="actual_gst" class="control-label">C/S GST</label>
+		    {{ hrd_form.paid_cgst}}
+		    {{ hrd_form.paid_sgst }}<br />
+
+            <label for="other_adj" class="control-label">Other Adj</label>
+            {{hrd_form.paid_adj_type }}
+           {{hrd_form.paid_adj }}   <br>
+		</div>
+
+		<div class = "col-sm-3 thirdCol">
+
+		    <label for="supp_add" class="control-label">Less Discount</label>
+		    {{ hrd_form.net_discount }}<br>
+
+		    <label for="supp_add" class="control-label">Net CGST</label>
+		    {{ hrd_form.net_cgst }}<br>
+
+		    <label for="supp_add" class="control-label">Net SGST</label>
+		    {{ hrd_form.net_sgst}}<br>
+
+		    <label for="adjustment" class="control-label">Adjustment</label>
+		    {{ hrd_form.net_adj }}<br>
+
+            <label for="total_amt" class="control-label">Item Amount</label>
+           {{ hrd_form.net_amount }} <br>
+
+		</div>
+
+	</div>
+
+	</form>
+</div>

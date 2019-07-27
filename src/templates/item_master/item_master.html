@@ -1,0 +1,64 @@
+<script>
+var $uid = 0;
+var $batch_data_set;
+$(document).ready(function(){
+    {% if is_create %}
+    $batch_data_set = []; //array to store the itmes
+    {% else %}
+    $batch_data_set = JSON.parse('{{batch_data_set | escapejs}}');
+
+    for(var i = 0; i < $batch_data_set.length; i++)
+        $batch_data_set[i]['deleted'] = 0;
+
+    fill_item_table($batch_data_set);
+    $uid = $batch_data_set.length;
+    {% endif %}
+
+    {% if is_retrieve %}
+    setInputsDisabled();
+    {% endif %}
+
+    $('#save, #update').click(function(e){
+        e.preventDefault();
+        var url;
+        {% if is_update %}
+            url = "{{instance.get_absolute_edit_url}}";
+        {% else %}
+            url = "/item/create/";
+        {% endif %}
+        console.log("update")
+        saveUpdateItemAjax($(this), url);
+    });  
+})
+
+{% if not is_retrieve %}
+    loadAutocomlete();
+$(document).unbind("keyup").keyup(function(e){
+    e.preventDefault();
+    if (e.which == 118) {
+        $("#search_item_modal").modal("toggle");
+    }
+    if(e.which == 120) {
+        $("#editor-modal").modal("toggle");
+        $("#editor").trigger("reset");
+        $createMode = true;
+        $("#batch_no").attr("readonly", false);
+        $('#editor-modal').on('shown.bs.modal', function () {
+            $("#batch_no").focus();
+        });
+    }
+});
+{% else %}
+$(document).unbind("keyup").keyup(function(e){
+    if(e.which == 120) {
+        alert("You cannot create/edit Batch in this Mode");
+    }
+});
+{% endif %}
+
+{% if not is_create %}
+$("#id_unit_id").attr("value", "{{instance.unit_id.name}}");
+$("#id_group_id").attr("value", "{{instance.group_id.name}}");
+$("#id_salt_id").attr("value", "{{instance.salt_id.name}}");
+{% endif %}
+</script>

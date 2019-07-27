@@ -1,0 +1,97 @@
+<nav class="navbar navbar-default" >
+  <div class="container-fluid">
+    <ul class="nav navbar-nav" style = "height: 15px; font-weight: bold;">
+    <li class = "home"><a  href="/">Home</a></li>
+      <li class = "purchase"><a id = "purchase" href="/purchase/create">Purchase</a></li>
+      <li class = "sales"><a id = "sales" href="/sales/create">Sale</a></li>
+      <li class = "item_master"><a id = "item_master" href="/item/create">Item Master</a></li>
+	<li class="dropdown reports">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a data-toggle="modal" data-target="#search_item_modal" href="">Item Search F7</a></li>
+            <li class="dropdown dropdown-submenu">
+
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Purchase Report</a>
+				<ul class="dropdown-menu">
+
+                    <li><a href="/reports/purchase/InvoiceStatement">Purchase Invoice Report</a></li>
+                    <li><a href="/reports/purchase/MonthlyInvoiceStatement">Month wise Purchase Report</a></li>
+                    <li><a href="/reports/purchase/DayInvoiceStatement">Date wise Purchase Report</a></li>
+					<li><a href="/reports/purchase/ItemWiseReport">Item Purchase Report</a></li>
+                    <li><a href="/reports/purchase/SupplierWiseReport">Supplier wise Purchase Report</a></li>
+					<li><a href="/reports/purchase/SupplierItemWiseReport">Item/Supplier Purchase Report</a></li>
+				</ul>
+			</li>
+
+            <li class="dropdown dropdown-submenu">
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales Report</a>
+				<ul class="dropdown-menu">
+					<li><a href="/reports/sales/InvoiceStatement">Sale Invoice Report</a></li>
+					<li><a href="/reports/sales/DayInvoiceStatement">Date wise Sales Statement</a></li>
+                    <li><a href="/reports/sales/MonthlyInvoiceStatement">Month wise Sales Statement</a></li>
+					<li><a href="/reports/sales/CustomerWiseReport">Customer Sales Report</a></li>
+					<li><a href="/reports/sales/DoctorWiseReport">Doctor Sale Report</a></li>
+					<li><a href="/reports/sales/ItemWiseReport"">Item Wise Sale Statement</a></li>
+				</ul>
+			</li>
+
+            <li class="dropdown dropdown-submenu">
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventory Report</a>
+				<ul class="dropdown-menu">
+					<li><a href="/reports/InventoryReport/Company/">Company Wise Report</a></li>
+					<li><a href="/reports/InventoryReport/Salt/">Salt Wise Report</a></li>
+					<li><a href="/reports/InventoryReport/Unit/">Unit Wise Report</a></li>
+					<li><a href="#">Qty Less than Min</a></li>
+					<li><a href="#">Qty More than Min</a></li>
+					<li><a href="/reports/ExpiryReport">Expiry Report</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+
+    </ul>
+
+	<ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right: 30px;">
+                <span class="glyphicon glyphicon-user"></span>&nbsp;
+                <strong>Admin</strong>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </a>
+            <ul class="dropdown-menu" style="margin-right: 30px;">
+                <li>
+                    <div class="navbar-login">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="text-center">
+                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                </p>
+                            </div>
+                            <div class="col-md-8">
+                                <p class="text-left"><strong>{{current_session.registration_id.user_id.first_name}} {{current_session.registration_id.user_id.last_name}}</strong></p>
+                                <p class="text-left"><strong>{{current_session.code}}</strong></p>
+                                <p class="text-left"><strong>From: {{current_session.from_dt | date:"d-M-Y" }}<br> To: {{current_session.to_dt  | date:"d-M-Y"}}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <div class="navbar-login navbar-login-session">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    <a href="/account/logout" class="btn btn-danger btn-block">Logout</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+  </div>
+</nav>

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style type="text/css">
+#id_item{
+	width: 61.6%;
+}
+#id_supplier{
+width: 59%;
+}
+.control-label{
+	font-size: 16px;
+}
+input{
+	font-size: 15px;
+	padding-left: 4px;
+}
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+{% include "home/navbar.html" %}
+  <div class="jumbotron" style="margin-top: -20px;">
+  	<div class = "container">
+    <h1>Item/Supplier Report</h1>
+    <p>Generate Report of Item/Supplier Report according to date </p>
+  </div>
+ </div>
+
+
+<div class = "container">
+	<div class = "col-md-12 col-offset-3">
+	<form id = "my_form" method = "POST">{% csrf_token %}
+
+		<div class = "row">
+			  <div class="form-group required col-md-6">
+			     <label for="from_dt" class="control-label">From Date</label>
+			      <span style="display:inline-block; width: 1px;"></span>
+			      {{form.from_dt}}<br>
+			  </div>
+			  <div class="form-group required col-md-6">
+			     <label for="to_dt" class="control-label">To Date</label>
+			      <span style="display:inline-block; width: 18px;"></span>
+			      {{form.to_dt}}<br>
+			  </div>
+		</div>
+
+		<div class = "row" style="margin-top: 10px;">
+			<div class="form-group required col-md-12">
+		       <label for="from_dt" class="control-label">Item Name</label>
+			    <span style="display:inline-block; width: 1px;"></span>
+			    {{form.item}}<br>
+			</div>
+		</div>
+		<div class = "row" style="margin-top: 10px;">
+			<div class="form-group required col-md-12">
+		       <label for="from_dt" class="control-label">Supplier Name</label>
+			    <span style="display:inline-block; width: 1px;"></span>
+			    {{form.supplier}}<br>
+			</div>
+		</div>
+		<input class = "btn btn-primary" type = "submit" value = "Show" style="margin-top: 30px;">
+	</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+$( function() {
+    $( "#id_from_dt, #id_to_dt" ).datepicker({
+    	maxDate: "{{min_date | date:'Y-m-d'}}",
+    	min_date: "{{max_date | date:'Y-m-d'}}",
+    	altFormat: "yy-mm-dd"
+    });
+    $("#id_from_dt").attr("value", "{{min_date | date:'Y-m-d'}}");
+    $("#id_to_dt").attr("value", "{{max_date | date:'Y-m-d'}}");
+  });
+
+$.getJSON("/item/api/list/?format=json", function (data) {
+    $("#id_item").autocomplete({
+        lookup:  data,
+        lookupLimit: 80,
+        minChars: 1,
+        autoSelectFirst : false,
+        showNoSuggestionNotice:  true,
+
+        onSelect: function(suggestion) {
+              $("#item_id_field").val(suggestion.id);
+
+        },
+        onHint: function (hint) {
+            $('#item-hint').val(hint);
+         },
+         lookupFilter: function (suggestion, query, queryLowerCase) {
+              return suggestion.value.toLowerCase().indexOf(queryLowerCase) == 0;
+          },
+    });
+})
+$.getJSON("/company/api/supplier-list/?format=json", function (data) {
+    $("#id_supplier").autocomplete({
+        lookup:  data,
+        lookupLimit: 50,
+        minChars: 1,
+        autoSelectFirst : false,
+        showNoSuggestionNotice:  true,
+
+        onSelect: function(suggestion) {
+              $("#item_id_field").val(suggestion.id);
+
+        },
+        onHint: function (hint) {
+            $('#item-hint').val(hint);
+         },
+    });
+})
+
+</script>
+
+{% endblock %}

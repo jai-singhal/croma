@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static '/css/reports.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block style %}
+<style media="screen">
+  td{
+    font-size: 14px ;
+  }
+    .date{
+  	color:red;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% include "home/navbar.html" %}
+  <div class="jumbotron" style="margin-top: -20px; margin-bottom: 20px;">
+  	<div class = "container">
+    <h1>{{title}}</h1>
+    {% if report_type == "day" %}
+    	<p>Displaying the results from <span class="date">{{from_dt| date:"d/m/y"}}</span> to <span class="date">{{to_dt|date:"d/m/y"}}</span></p>
+    {% else %}
+    	<p>Displaying the results from <span class="date">{{ from_dt | date:"m/y" }}</span> to <span class="date">{{to_dt| date:"m/y"}}</p>
+    {% endif %}
+
+		<a href = 'export_report'><button class = "btn btn-primary">Export CSV</button></a>
+  </div>
+ </div>
+
+{% if report %}
+<div class = "container"  style="margin-bottom: 80px;">
+	<div id = "no-more-tables">
+		<table class="col-md-12 table-bordered table-striped table-condensed cf">
+			<thead>
+			<tr>
+				<th class="col-sm-6">Date</th>
+        <th class="col-sm-6">Amount</th>
+			</tr>
+			</thead>
+			{% for month_report in report %}
+				<tr>
+					<td class="col-sm-6">{% if report_type == "month" %}{{month_report.month |date:"M, Y" }}{% else %}{{month_report.day |date:"M d, Y" }}{% endif %}</td>
+          <td class="col-sm-6">{{month_report.amt}}</td>
+				</tr>
+			{% endfor %}
+			{% if not report.has_next %}
+			<tr>
+				<td class = "col-sm-6" style="color: red; font-weight: bold;">Total</td>
+				<td class="col-sm-6" style="color: red; font-weight: bold;">{{total.total_amt}}</td>
+			</tr>
+			{% endif %}
+	</div>
+	</table>
+ </div>
+
+ {% else %}
+ <div class="container">
+ 	<h4 style="color : red">No Report Found</h4>
+ </div>
+ {% endif %}
+
+ <br><br> <br><br> <br><br>
+
+{% include "reports/pagination.html" %}
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+var total_pages = {{report.paginator.num_pages}};
+var current_page = {{report.number}};
+</script>
+<script src = "{% static '/js/report_pagination.js' %}"></script>
+{% endblock %}

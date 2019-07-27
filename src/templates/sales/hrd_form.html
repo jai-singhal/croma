@@ -1,0 +1,88 @@
+{% load staticfiles %}
+<div class = "container" style="margin-top: -30px;">
+	<form  class = "form-group row" id = "sale_hrd_form">{% csrf_token %}
+		<br><br>
+		<div class = "col-sm-8">
+			<div class="row first_row">
+				<div class = "col-sm-4">
+					<label for="inv-no" class="control-label labelType3">Invoice No.
+					</label>
+					<input type = "number" value = {{doc_no}} readonly id = "id_doc_no" name = "doc_no">
+				</div>
+				<div class = "col-sm-4">
+					<label for="sale-date" class="control-label labelType3">Date
+					</label>
+					{{form.doc_dt }}
+				</div>
+				<div class = "col-sm-4">
+					<label for="sale-date" class="control-label labelType3">Mode</label>
+						{{form.mode }}
+					</div>
+				</div>
+				<div class="row second_row">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType1">Patient Name</span>
+						</label>
+						{{form.party_id }}
+					</div>
+				</div>
+				<div class="row third_row">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType1">Prescribed By</span>
+						</label>
+						{{form.doctor_id }}
+
+						{% if is_create or is_update %}<a href="/sales/doctor/create" id="add_doctor" class = "fkey" onclick="return showAddPopup(this);"><img src = "{% static '/images/icon-addlink.svg' %}"></a>
+						<a id="edit_doctor" class = "fkey" ><img src = "{% static '/images/icon-changelink.svg' %}"></a>{% endif %}
+
+					</div>
+				</div>
+				<div class="row fourth_row">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType1">Message</span>
+						</label>
+						{{form.message }}
+					</div>
+				</div>
+			</div>
+
+			<div class = "col-sm-4">
+				<div class="row row_2">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType2">Total Amount</label>
+						{{form.rec_amt}}
+					</div>
+				</div>
+				<div class="row row_2">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType2">Discount
+						</label>
+						{{form.sale_disc_type }}
+						{{form.sale_discount }}
+					</div>
+				</div>
+				<div class="row row_2">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType2">Net C/S GST(&#8360;)
+						</label>
+						{{form.net_cgst }} {{form.net_sgst}}
+					</div>
+				</div>
+				<div class="row row_2">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType2">Net GST(&#8360;)
+						</label>
+						{{form.net_gst }}
+					</div>
+				</div>
+				<div class="row row_2">
+					<div class = "col-sm-12">
+						<label for="sale-date" class="control-label labelType2">Net Amount
+						</label>
+						{{form.net_amount }}
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

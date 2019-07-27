@@ -1,0 +1,168 @@
+{% load staticfiles %}
+<div class="modal modal-ms purchase_item_form" id="item-purchase-modal-editor" tabindex='-1' role="dialog" aria-labelledby="editor-title" data-backdrop="static" data-keyboard="false">
+  <style scoped>
+    .form-group.required .control-label:after {
+      content:"*";
+      color:red;
+      margin-left: 4px;
+    }
+  </style>
+  <div class="modal-dialog" role="document" tabindex='-1'>
+
+    <form class="modal-content form-horizontal" id="Item-purchase-form">
+      <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="editor-title">Add Item</h4>
+      </div>
+
+      <div class="modal-body">
+          <div class = "row">
+          <div class = "col-sm-12">
+
+            <div class = "row item-1row">
+              <div class="form-group required col-sm-12" style = "margin-right: 15px;">
+               <label for="item_name" class="control-label labelType1">Item Name </label>
+               <input type = "hidden" id = "item_id_field">
+                <input type="text" id = "id_item_id">
+                <img style="float:right;  display:none; position: relative;left: -26px; top: -26px; width: 30px;" id = "gif_load_item_batches" src="{% static '/images/load_itembatch.gif' %}" />
+              </div>
+            </div>
+
+            <div class = "row item-2row">
+              <div class="form-group required col-sm-6">
+                  <label for="batch_no" class="control-label labelType1">Batch No.</label>
+                    {{dtl_form.batch_no}}
+              </div>
+              <div class = "col-sm-1"></div>
+              <div class="form-group required col-sm-6" >
+                  <label for="expiry" class="control-label labelType2">Expiry</label>
+                  <input id="expiry" name="expiry" placeholder="MM/YY">
+              </div>
+            </div>
+
+            <div class = "row item-3row">
+              <div class="form-group required col-sm-6">
+                  <label for="qty" class="control-label labelType1">Qty</Q></label>
+                  {{dtl_form.strip_qty}}
+                  {{dtl_form.nos_qty}}
+               </div>
+              <div class = "col-sm-1"></div>
+              <div class="form-group col-sm-6" >
+                  <label for="free-qty" class="control-label labelType2">Free Qty</Q></label>
+                  {{dtl_form.strip_free}}
+                  {{dtl_form.nos_free}}
+              </div>
+            </div>
+
+            <div class = "row item-4row">
+               <div class="form-group col-sm-6">
+                   <label for="qty" class="control-label labelType1">Conversion</Q></label>
+                  <input type="text" id="id_unit" name="unit"  disabled>
+               </div>
+               <div class = "col-sm-1"></div>
+               <div class="form-group col-sm-6" >
+                  <label for="free-qty" class="control-label labelType2">P/S Price</Q></label>
+                  <input type="number" step="0.01" id="id_purchase" name="purchase_Rate" value = "0.00">
+                  <input type="number" step="0.01" id="id_sales" name="sales_rate" value = "0.00">
+              </div>
+           </div>
+
+          <hr class = "dtl_hr">
+            <div class = "row item-5row">
+              <div class="col-sm-6">
+                <h5><a href = "#detail-item-view" data-toggle="modal" data-target="#detail-item-view">Click Here</a> to see more Info about Item</h5>
+              </div>
+              <div class = "col-sm-6">
+
+                 <label for="qty-stock" class="control-label labelType2">Qty Stock</label>
+                  <input type = "number" disabled id = "strip_stock" val = 0 style="width: 60px; margin-left: 8px;" />
+                  <input type = "number" disabled id = "nos_stock" val = 0 style="width: 60px; margin-top: 5px; margin-left: 10px;" / >
+              </div>
+            </div>
+
+           <hr class = "dtl_hr">
+            <div class = "row item-5row">
+              <div class="form-group col-sm-3">
+                   <label for="inst_rate" class="control-label labelType3">Inst Rate</Q></label>
+                  <input type="number" step="0.01" id="id_inst_rate" name="inst_rate" value = "0.00" disabled>
+              </div>
+              <div class = "col-sm-1"></div>
+              <div class="form-group col-sm-3" >
+                 <label for="mrp" class="control-label">MRP</Q></label>
+                 <input type="number" step="0.01" id="id_mrp" name="mrp" value = "0.00" disabled>
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="trade_rate" class="control-label labelType3">Trade Rate</Q></label>
+                <input type="number" step="0.01" id="id_trade_rate" name="trade_rate" value = "0.00" disabled>
+              </div>
+              <div class = "col-sm-1"></div>
+              <div class="form-group col-sm-3" >
+                 <label for="std_rate" class="control-label">Std Rate</Q></label>
+                 <input type="number" step="0.01" id="id_std_rate" name="std_rate" value = "0.00" disabled>
+              </div>
+            </div>
+            <hr class = "dtl_hr">
+
+              <div class = "row item-6row">
+              <div class="form-group col-sm-6">
+                <label for="discount" class="control-label labelType1">Discount</label>
+                {{dtl_form.discount}}
+                {{dtl_form.disc_type}}
+              </div>
+              <div class="col-sm-1" ></div>
+              <div class="form-group col-sm-6" >
+                <label for="excise" class="control-label labelType2">Excise</label>
+                    {{dtl_form.excise}}
+                    {{dtl_form.excise_type}}
+              </div>
+            </div>
+              <div class = "row item-6row">
+                <div class="form-group col-sm-6" >
+                <label for="cgst" class="control-label labelType1">C-GST</label>
+                <select id = "id_cgst">
+                  <option value="0">0%</option>
+                  <option value="2.5">2.5%</option>
+                  <option value="6" selected="selected">6%</option>
+                  <option value="9">9%</option>
+                  <option value="14">14%</option>
+                </select>
+              </div>
+              <div class="col-sm-1" ></div>
+              <div class="form-group col-sm-6">
+                <label for="sgst" class="control-label labelType2">S-GST</label>
+                <select id = "id_sgst">
+                  <option value="0">0%</option>
+                  <option value="2.5">2.5%</option>
+                  <option value="6" selected>6%</option>
+                  <option value="9">9%</option>
+                  <option value="14">14%</option>
+                </select>
+              </div>
+
+            </div>
+            <div class = "row item-5row">
+              <div class="form-group col-sm-6">
+                <label for="other_charge" class="control-label labelType1">Other Charges</label>
+                {{dtl_form.other_charge}}
+              </div>
+              <div class="col-sm-1" ></div>
+                <div class="form-group col-sm-6">
+                <label for="amount" class="control-label labelType2">Amount</label>
+                {{dtl_form.amount}}
+              </div>
+            </div><!-- END OF ROW-->
+
+          </div> <!-- END OF COL-MD-9 -->
+        </div>
+          <div class = "row">
+            <center>
+
+              <input type="submit" id = "purchase-item-submit" class="btn btn-primary" value = "Add Item">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </center>
+
+          </div>
+      </div> <!-- End of model Body -->
+    </form>
+  </div>
+</div>
