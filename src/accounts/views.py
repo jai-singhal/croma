@@ -38,6 +38,14 @@ class loginView(View):
 		else:
 			return False
 
+	@staticmethod
+	def getGetContext(form):
+		return {
+			"form" : form,
+			"title" : "User Login",
+			"btn_txt": "Login"
+		}	
+
 	def get(self, *args, **kwargs):
 		user_qs = self.User.objects.all()
 		register_qs = Registration.objects.all()
@@ -51,16 +59,10 @@ class loginView(View):
 		if self.sessionExpirationCheck():
 			return redirect(self.session_redirect_url)
 
-		context = {
-			"form" : self.formClass(),
-			"title" : "User Login",
-			"btn_txt": "Login"
-		}
-
-		return render(self.request, self.template_name, context)
+		return render(self.request, self.template_name, self.getGetContext(self.formClass()))
 	
 	def post(self, *args, **kwargs):
-		form = self.formClass(self.request.POST)
+		form = self.formClass(self.request.POST or None)
 		register_qs = Registration.objects.all()
 		if form.is_valid():
 			username = form.cleaned_data.get("username")
@@ -72,7 +74,7 @@ class loginView(View):
 			if register_qs.count() == 0:
 				return HttpResponseRedirect(self.register_url)
 			return redirect(self.success_url)
-		return HttpResponseRedirect("/account/login")
+		return render(self.request, self.template_name, self.getGetContext(form))
 
 def register_view(request):
 	User = get_user_model()
