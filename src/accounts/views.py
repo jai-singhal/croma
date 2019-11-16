@@ -27,35 +27,35 @@ class loginView(View):
 	success_url = "/"
 	User = get_user_model()
  
-	def registrationCheck(self, *args, **kwargs):
-		user_qs = self.User.objects.all()
-		register_qs = Registration.objects.all()
-		if user_qs.count() == 0:
-			messages.warning(request, 'You have to first register yourself')
-			return HttpResponseRedirect("/account/register")
-
-		if register_qs.count() == 0:
-			return HttpResponseRedirect(self.register_url)
-
 	@staticmethod
 	def sessionExpirationCheck():
 		currDate = datetime.date.today()
 		lastEnding = YearEnding.objects.all().last()
+		if not lastEnding:
+			return True
 		if currDate > lastEnding.to_dt:
 			return True
 		else:
 			return False
 
 	def get(self, *args, **kwargs):
-		self.registrationCheck()
-		form = self.formClass()
+		user_qs = self.User.objects.all()
+		register_qs = Registration.objects.all()
+		if not user_qs:
+			messages.warning(self.request, 'You have to first register yourself')
+			return HttpResponseRedirect("/account/register")
+
+		if not register_qs :
+			return HttpResponseRedirect(self.register_url)
+
+		if self.sessionExpirationCheck():
+			return redirect(self.session_redirect_url)
+
 		context = {
-			"form" : form,
+			"form" : self.formClass(),
 			"title" : "User Login",
 			"btn_txt": "Login"
 		}
-		if self.sessionExpirationCheck():
-			return redirect(self.session_redirect_url)
 
 		return render(self.request, self.template_name, context)
 	
@@ -72,7 +72,7 @@ class loginView(View):
 			if register_qs.count() == 0:
 				return HttpResponseRedirect(self.register_url)
 			return redirect(self.success_url)
-
+		return HttpResponseRedirect("/account/login")
 
 def register_view(request):
 	User = get_user_model()
@@ -139,8 +139,6 @@ def companyRegistrationView(request):
 
 		initializeRegistration(company_instance, today_date, end_date)
 
-
-		
 		messages.warning(request, 'Login')
 		return redirect("/account/login")
 	return render(request, "accounts/account_form.html", {
@@ -159,6 +157,8 @@ class sessionExpireView(View):
 	def sessionExpirationCheck():
 		currDate = datetime.date.today()
 		lastEnding = YearEnding.objects.all().last()
+		if not lastEnding:
+			return True
 		if currDate > lastEnding.to_dt:
 			return True
 		else:
