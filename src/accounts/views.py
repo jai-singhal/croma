@@ -111,11 +111,12 @@ def initializeRegistration(company_instance,  today_date, end_date):
 						year_pur_id=0, year_sale_id=0,
 													from_dt=today_date, to_dt=end_date, 
 						registration_id=company_instance)
-	# Godown.objects.create(name = "GODOWN")
-	# Supplier.objects.create(name = "SELF")
-	# Company.objects.create(name = "AVENTIS PASTEUR")
-	# Unit.objects.create(name = "1*10", unit = 10)
-	# Salt.objects.create(name = "TELMISARTAN")
+	
+	Godown.objects.create(name = "GODOWN")
+	Supplier.objects.create(name = "SELF")
+	Company.objects.create(name = "AVENTIS PASTEUR")
+	Unit.objects.create(name = "1*10", number = 10)
+	Salt.objects.create(name = "TELMISARTAN")
 
 
 
@@ -138,10 +139,9 @@ def companyRegistrationView(request):
 		company_instance = form.save()
 		today_date = datetime.date.today()
 		end_date = today_date + datetime.timedelta(days=365)
-
+		messages.success(request, "Creating 1 default company, salt, unit, godown and supplier")
 		initializeRegistration(company_instance, today_date, end_date)
 
-		messages.warning(request, 'Login')
 		return redirect("/account/login")
 	return render(request, "accounts/account_form.html", {
 		"form" : form,
