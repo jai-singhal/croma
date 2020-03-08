@@ -5,62 +5,60 @@ from accounts.models import Registration
 def print_header(fp, sale_info):
   reg = Registration.objects.first()
 
-  fp.write('\n{0:24}{1:20}\n'.format(" ", "GST INVOICE"))
+  fp.write('\n{0:26}{1:20}\n'.format(" ", "GST INVOICE"))
 
-  fp.write('  {0:28}{1:3}{2:20}\n'.format("DL No: " + 
-              (reg.dl_no1.upper() if reg.dl_no1 else ""), "  ", "GST No.: " + (reg.gst_no if reg.gst_no else "")))
-  fp.write('{0:16}{1:5}\n'.format(" ", reg.company_name.upper() if reg.company_name else ""))
-  fp.write('  {0:40}{1:20}\n'.format(
+  fp.write('   {0:28}{1:4}{2}\n'.format("DL No: " + 
+              (reg.dl_no1.upper() if reg.dl_no1 else ""), "   ", " GST No.: " + (reg.gst_no if reg.gst_no else "")))
+  fp.write('{0:17}{1}\n'.format(" ", reg.company_name.upper() if reg.company_name else ""))
+  fp.write('   {0:38}{1}\n'.format(
                           (reg.address1.upper() if reg.address1 else "")
-                           +  ( ", " + reg.address2.upper() if reg.address2 else "")
-                            + ( ", " + reg.city.upper() if reg.city else ""), 
-                            " Ph.: " + (reg.phone1 if reg.phone1 else "")))
-  fp.write('  ' + '-'*56 + '\n')
-  fp.write('  {0:9}{1:27}{2:11}{3:12}\n'.format("Patient:  ", sale_info['party_id'][:26], "Invoice No: ", sale_info['inv_no']))
+                           +  ( "," + reg.address2.upper() if reg.address2 else "")
+                            + ( "," + reg.city.upper() if reg.city else ""), 
+                            "    Ph.: " + (reg.phone1 if reg.phone1 else "")))
+  fp.write('  ' + '-'*60 + '\n')
+  fp.write('   {0:9}{1:30}{2:11}{3}\n'.format("Patient:  ", sale_info['party_id'][:26], "Invoice No: ", sale_info['inv_no']))
   doc_dt = sale_info['doc_dt'].split("-")
   doc_dt = doc_dt[2] + "/" + doc_dt[1] + "/" + doc_dt[0]
 
-  fp.write('  {0:10}{1:27}{2:}{3:12}\n'.format("Presc.by: ", sale_info['doctor_id'][:25], "Date: ", doc_dt))
-  fp.write('  ' + '-'*56 + '\n')
-  fp.write('   {0:5}{1:24}{2:11}{3:8}{4:10}\n'.format("Qty", "Name of Item", "Batch No.", "Expiry", "Amount"))
-  fp.write('  ' + '-'*56 + '\n')
+  fp.write('   {0:10}{1:30}{2:}{3}\n'.format("Presc.by: ", sale_info['doctor_id'][:25], "Date: ", doc_dt))
+  fp.write('  ' + '-'*60 + '\n')
+  fp.write('{0:5}{1:5}{2:25}{3:11}{4:8}{5}\n'.format(" ", "Qty", "Name of Item", "Batch No.", "Expiry", "Amount"))
+  fp.write('  ' + '-'*60 + '\n')
 
 
 def print_footer(fp, sale_info):
   reg = Registration.objects.first()
-  fp.write('  ' + '-'*56 + '\n')
+  fp.write('  ' + '-'*60 + '\n')
 
-  fp.write(' {0:4}{1:7}'.format("  Item: ", str(sale_info['total_item'])))
-  fp.write('{0:4}{1:9}'.format("Disc:", str(sale_info['sale_discount'])))
-  fp.write('{0:4}{1:8}'.format("Adj:", str(0.00)))
-  fp.write('{0:6}{1:8}\n'.format("Total: ", str(sale_info['net_amount'])))
+  fp.write('  {0:4}{1:7}'.format("   Item: ", str(sale_info['total_item'])))
+  fp.write('{0:5}{1:10}'.format("Disc:", str(sale_info['sale_discount'])))
+  fp.write('{0:5}{1:9}'.format("Adj:", str(0.00)))
+  fp.write('{0:6}{1:10}\n'.format("Total: ", str(sale_info['net_amount'])))
 
-  fp.write('  ' + '-'*56 + '\n')
+  fp.write('  ' + '-'*60 + '\n')
   company_name = reg.company_name.title().split(" ")
-  print(company_name)
-  footer = "Consult your Doctor before use. For " \
+  footer = " Consult your Doctor before use. For " \
           + ( " ".join(company_name) if reg.company_name else "") + \
             ". Price includes Reimb. for GST paid"
   # print(len(footer)/2)
-  print(footer)
-  fp.write('   {0}\n'.format(footer[0:55]))
-  fp.write('   {0}\n'.format(footer[55:]))
+  fp.write('   {0}\n'.format(footer[0:53]))
+  fp.write('   {0}\n'.format(footer[53:]))
 
 
 def print_items(fp, sale_items, page_no):
   x = 0
   if(page_no > 1):
-   x = (page_no - 1)*5
+   x = (page_no - 1)*6
 
-  for item in sale_items[x : page_no*5]:
+  for item in sale_items[x : page_no*6]:
 
-    fp.write('    {:4}'.format(str(item['qty'])))
+    fp.write('{0:6}{1:4}'.format(" ", str(item['qty'])))
     item_name = item['item_name']
 
-    if(len(item['item_name']) >= 23):
-      item_name = item['item_name'][0:22] + ".."
+    if(len(item['item_name']) >= 25):
+      item_name = item['item_name'][0:23] + ".."
 
-    fp.write('{:24}'.format(item_name))
+    fp.write('{:25}'.format(item_name))
 
     batch = item['batch']
     if(len(item['batch']) >= 11):
@@ -73,7 +71,7 @@ def print_items(fp, sale_items, page_no):
     fp.write('{:8}'.format(expiry))
     fp.write('{:0.2f}\n'.format(float(item['amount'])))
 
-  for i in range(len(sale_items), 5*page_no):
+  for i in range(len(sale_items), 6*page_no):
     fp.write("\n")
 
 
@@ -86,9 +84,9 @@ def MakeInvoice(json_dict):
   fp = open(file_path, "w")
 
   total_items = int(sale_info['total_item'])
-  total_pages = total_items//5 + 1
-  if(total_items%5 == 0):
-    total_pages = total_items//5
+  total_pages = total_items//6 + 1
+  if(total_items%6 == 0):
+    total_pages = total_items//6
 
   page_count = 1
   if total_pages == 0:
@@ -100,8 +98,8 @@ def MakeInvoice(json_dict):
     print_items(fp, sale_items, page_count)
 
     if(page_count != total_pages):
-      fp.write('{0:39}{1:12}'.format(" ", "Continued on... " + str(page_count + 1)))
-      fp.write("\n"*5)
+      fp.write('{0:43}{1:12}'.format(" ", "Continued on... " + str(page_count + 1)))
+      fp.write("\n"*6)
     page_count += 1
 
 
