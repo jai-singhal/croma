@@ -1,4 +1,4 @@
-Django==1.11.23
+Django==1.11.28
 django-appconf==1.0.3
 django-compressor==2.3
 django-environ==0.4.5
