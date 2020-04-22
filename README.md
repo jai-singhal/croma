@@ -43,9 +43,10 @@ This is the project which I have made in Django for my dad's medical shop. This 
 3. Unzip it, and cd to it to the project directory.
 
 4. create virtualenv by
+  
     Install via pip
     `
-    pip install viertualenv
+    pip install virtualenv
     `
     
     For linux/mac 
